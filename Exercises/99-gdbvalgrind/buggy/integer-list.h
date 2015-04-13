@@ -73,7 +73,7 @@ public:
   {
     Node* t = this;
     while (! t->isLast ())
-      t = next;
+      t = t->getNext();
 
     Node* theNewNode = new Node(a);
     t->setNext (theNewNode);
@@ -86,6 +86,8 @@ public:
   {
     previous->setNext (next);
     next->setPrevious (previous);
+    next = NULL;
+    delete this;
   }
   
   // replace this node with a given node
@@ -94,6 +96,8 @@ public:
   {
     previous->setNext (replacement);
     next->setPrevious (replacement);
+    next = NULL;
+    delete this;
   }
 
   // find first node with a specified value in sublist starting from this node
@@ -107,7 +111,7 @@ public:
     Node* t = this;
     while(! t->isLast ())
       {
-        t = next;
+        t = t->getNext();
         if (t->getData () == needle)
           return t;
       }
@@ -121,9 +125,9 @@ public:
     while(! t->isLast ())
       {
         std::cout << t->getData () << ", ";
-        t = next;
+        t = t->getNext();
       }
-    std::cout << t.getData () << std::endl;
+    std::cout << t->getData () << std::endl;
   }
   
 protected:
